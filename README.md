@@ -109,3 +109,17 @@ equations like :
 so create a new column called OTIF in Power BI with below equation
 
     OTIF = if(fact_order_lines[In Full]==1 && fact_order_lines[On Time]==1,1,0)
+
+- Checking for negative values using Power Bi Filtering, select desird column -> clicking on arrow -> Nmber Filters -> Less than..., used zero(0)  - none found
+
+## Architecture Diagram
+
+
+There are 4 four dimension tables, one for customers, one for products, another one date dimestion and finally last one target for each customers.
+
+![ERD](images/erd.png)
+
+it contains two fact tables one for details order data containing all the orders with different products, we see that for a single order can contain different products with random quantites. It also includes order date, agreed delivery date with actual delivery date. furthermore actual delivered quantity also provided here.
+
+
+another fact table contains aggreate order data, containing only one row for each order with on_time, in_full and otif.
