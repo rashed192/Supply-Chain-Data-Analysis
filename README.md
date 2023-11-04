@@ -76,3 +76,36 @@ Column Description for fact_orders_aggregate:
     4. on_time: '1' denotes the order is delivered on time. '0' denotes the order is not delivered on time.
     5. in_full: '1' denotes the order is delivered in full quantity. '0' denotes the order is not delivered in full quantity.
     6: otif:    '1' denotes the order is delivered both on time and in full quantity. '0' denotes the order is either not delivered on time or not in full quantity.
+
+## Stakeholders
+
+- Top Management of GDS Mart
+- The Supply Chain team of GDS Mart
+
+## Data-set Cleaning Preparation
+
+### Tools Used
+- MS Excel for Data exploring
+- Microsoft Power BI for Data Cleaning, Processing, Analysis and visualization
+
+### Cleaning and Processing Data
+The data set is pre-processed. There is less chance of blanks or dirty data. However, in order to clean obtained data following cleaning activities have been performed :
+
+- The date format of the  **mmm_yy** column of **dim_Date** table borken after loading the csv into Power BI, crated a new column called **MON_YY** below DAX 
+
+    MON_YY = FORMAT(dim_date[mmm_yy],"MMM-YY")
+
+- Checking for blank values - none found
+- Checking for duplicates values - none found
+- for **fact_order_lines** table checking **In Full**  column comparing *order_qty* & *delivery_qty* by equation in MS Excel for each row, it's okay and also **On Time* seems okay by comparing *agreed_delivery_date* and *actual_delivery_date*
+
+equations like : 
+
+    IF(E2=H2,1,0) & IF(G2>F2,0,1) for 1st data row, it continues till ends
+
+- for **fact_order_lines** table **On Time In Full** column seems incorrect for some of the columns 
+
+![anomaly ](images/OTIF_anomaly.png)
+so create a new column called OTIF in Power BI with below equation
+
+    OTIF = if(fact_order_lines[In Full]==1 && fact_order_lines[On Time]==1,1,0)
