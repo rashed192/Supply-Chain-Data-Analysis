@@ -106,7 +106,7 @@ equations like :
 - for **fact_order_lines** table **On Time In Full** column seems incorrect for some of the columns 
 
 ![anomaly ](images/OTIF_anomaly.png)
-so create a new column called OTIF in Power BI with below equation
+so created a new column called OTIF in Power BI with below equation
 
     OTIF = if(fact_order_lines[In Full]==1 && fact_order_lines[On Time]==1,1,0)
 
@@ -123,3 +123,69 @@ it contains two fact tables one for details order data containing all the orders
 
 
 another fact table contains aggreate order data, containing only one row for each order with on_time, in_full and otif.
+
+## Analyzing and Visualizing Data
+
+### Metrics Calculation
+
+- Total Order Lines: create a new measure in Power Bi with below DAX
+
+    Total Order Lines = COUNT(fact_order_lines[order_id])
+
+- Line Fill Rate (LIFR%): For this we need to create two measures one to calculate *Number of order lines shipped In Full Quantity* and then it's straight dividing. 
+
+    Equations are :
+
+    No of order lines shipped In Full Qty = CALCULATE(COUNT(fact_order_lines[order_id]), FILTER(fact_order_lines, fact_order_lines[OTIF]==1))
+
+    LIFR % = divide([No of order lines shipped In Full Qty], [Total Order Lines],0)
+
+- Volume Fill Rate	(VOFR %): 
+    
+    Equations are :
+
+    Total Quantity shipped = sum(fact_order_lines[delivery_qty])
+
+    Total Quantity Ordered = sum(fact_order_lines[order_qty])
+
+    VOFR % = DIVIDE([Total Quantity shipped], [Total Quantity Ordered],0)
+
+- Total Orders :
+
+    Total Orders = COUNT(fact_orders_aggregate[order_id])
+
+- On Time Delivery % (OT %) : 
+
+    Equations are:
+
+    Number of orders delivered On Time = CALCULATE(COUNT(fact_orders_aggregate[order_id]), FILTER(fact_orders_aggregate,fact_orders_aggregate[on_time]=1))
+
+    OT % = DIVIDE([Number of orders delivered On Time],[Total Orders],0)
+
+- In Full Delivery % (IF %) :
+
+    Equations are:
+
+    Number of orders delivered in Full quantity = CALCULATE(COUNT(fact_orders_aggregate[order_id]), FILTER(fact_orders_aggregate,fact_orders_aggregate[in_full]=1))
+
+    IF % = divide([Number of orders delivered in Full quantity],[Total Orders],0)
+
+- On Time In Full %	(OTIF %):
+
+    Equations are:
+
+    Number of orders delivered both OTIF = CALCULATE(COUNT(fact_orders_aggregate[order_id]), FILTER(fact_orders_aggregate,fact_orders_aggregate[otif]=1))
+
+    OTIF % = DIVIDE([Number of orders delivered both OTIF],[Total Orders],0)
+
+- On Time Target :
+
+    On Time Target = AVERAGE(dim_targets_orders[ontime_target%])
+
+- In Full Target : 
+    
+    In Full Target = AVERAGE(dim_targets_orders[infull_target%])
+
+- On Time In Full Target :
+
+    On Time In Full Target = AVERAGE(dim_targets_orders[otif_target%])
