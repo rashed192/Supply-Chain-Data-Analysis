@@ -4,7 +4,7 @@
 ## Project
 Generate Insights to Solve a Supply Chain Issue in FMCG Domain
 
-## problem Statment
+## Problem Statment
 GDS Mart is a growing FMCG manufacturer headquartered in Gujarat, India. It is currently operational in three cities Surat, Ahmedabad and Vadodara. They want to expand to other metro/tier1 cities in the next 2 years.
 
 GDS Mart is currently facing a problem where a few key customers have not extended the annual contract due to service issues. It is speculated that some of the essential products were either not delivered on time or not delivered in full over a continued period, which could have resulted in bad customer service. Management wants to fix this issue before expanding to other cities and requested their supply chain analytics team to track the ’On time’ and ‘In Full’ delivery service level for all the customers on a daily basis so that they can respond swiftly to these issues.
@@ -14,7 +14,7 @@ The Supply Chain team decided to use a standard approach to measure the service 
 ## Task:
 Mr. Analyst is the data analyst in the supply chain team who joined GDS Mart recently. He has been briefed about the task in the stakeholder business review meeting. Now Imagine yourself as Mr. Analyst and play the role of the new data analyst who is excited to build this dashboard and perform the following task:
 
-•	Create the metrics according to the metrics
+•	Create the metrics according to the metrics list provided
 
 ![Metric](images/metrics.png)
 
