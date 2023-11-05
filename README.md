@@ -93,7 +93,7 @@ The data set is pre-processed. There is less chance of blanks or dirty data. How
 
 - The date format of the  **mmm_yy** column of **dim_Date** table borken after loading the csv into Power BI, crated a new column called **MON_YY** below DAX 
 
-    MON_YY = FORMAT(dim_date[mmm_yy],"MMM-YY")
+    MON_YY = FORMAT(dim_date[date],"MMM-YY")
 
 - Checking for blank values - none found
 - Checking for duplicates values - none found
@@ -125,6 +125,10 @@ it contains two fact tables one for details order data containing all the orders
 another fact table contains aggreate order data, containing only one row for each order with on_time, in_full and otif.
 
 ## Analyzing and Visualizing Data
+
+### Contents
+- Raw Data [here](Raw%20Data)
+- Analysis on Power Bi [here](analysis)
 
 ### Metrics Calculation
 
@@ -189,3 +193,32 @@ another fact table contains aggreate order data, containing only one row for eac
 - On Time In Full Target :
 
     On Time In Full Target = AVERAGE(dim_targets_orders[otif_target%])
+
+- Neither On Time Nor In Full Quantity :
+
+    I notice that there is a condition like where products were deliver  neither on time nor In Full Quantity, so for this I create another metric.
+
+    Equations are:
+
+    Servie Level = if(fact_orders_aggregate[otif]=1, "OnTime in full", if(fact_orders_aggregate[in_full]=1,"In-full delivery",if(fact_orders_aggregate[on_time]=1,"on-time delivery","Neither IF Nor OT")))
+
+
+    Number of Orders Neither OT Nor IF = CALCULATE(COUNT(fact_orders_aggregate[order_id]), FILTER(fact_orders_aggregate,fact_orders_aggregate[Servie Level]="Neither IF Nor OT"))
+
+## Visualizing 
+This is my final dashboard
+![Metric](images/dashboard.png)
+
+## Findings
+- around 48% of products by orders maintain On time & In Full Quantity, where as around 29% of orders maintain On time & In Full Quantity 
+
+- around 11% of products couldn't be delivered On Time as well as In Full Quantity, In terms of orders it is  17%.
+
+- 29% of the products failed in On Time delivery where as 41% Orders failed in OT delivery
+
+- 34% of products failed in In Full Quantity Delivery where 47% of orders failed in IF Delivery
+
+- We see that on an average there are two days delay, so we could adjust agrred delivery date with client in advance 
+
+- also we see that on an average there are 24 shortage item in terms of order line, we can adjust that by either taking less order qty or increasing the stock little more.
+
