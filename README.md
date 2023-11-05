@@ -210,15 +210,15 @@ This is my final dashboard
 ![Metric](images/dashboard.png)
 
 ## Findings
-- around 48% of products by orders maintain On time & In Full Quantity, where as around 29% of orders maintain On time & In Full Quantity 
+- around 48% of order lines maintain On time & In Full Quantity, where as around 29% of orders maintain On time & In Full Quantity 
 
-- around 11% of products couldn't be delivered On Time as well as In Full Quantity, In terms of orders it is  17%.
+- around 11% of order lines couldn't be delivered On Time as well as In Full Quantity, In terms of orders it is  17%.
 
-- 29% of the products failed in On Time delivery where as 41% Orders failed in OT delivery
+- 29% of the order lines failed in On Time delivery where as 41% Orders failed in OT delivery
 
-- 34% of products failed in In Full Quantity Delivery where 47% of orders failed in IF Delivery
+- 34% of order lines failed in In Full Quantity Delivery where 47% of orders failed in IF Delivery
 
-- We see that on an average there are two days delay, so we could adjust agrred delivery date with client in advance 
+- I see that on an average there are two days delay, so we could adjust agreed delivery date in advance 
 
-- also we see that on an average there are 24 shortage item in terms of order line, we can adjust that by either taking less order qty or increasing the stock little more.
+- also I noticed on an average there are 24 shortage item in terms of order line, we can adjust that by either taking less order qty or increasing the stock little more.
 
